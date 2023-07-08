@@ -43,6 +43,7 @@ router.delete("/:id", (req, res) => {
 
 router.put("/:id", (req, res) => {
   const id = req.params.id;
+  if (Object.values(req.body).length < 5) res.redirect('/')
 
   if (!transactionArray.some(item => item.id == id)) {
     res.redirect("/");

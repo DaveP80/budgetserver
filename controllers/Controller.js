@@ -20,10 +20,15 @@ router.get("/:id", (req, res) => {
 router.post("/", (req, res) => {
   const newItem = req.body;
 
-  if (!newItem) {
-    res.redirect("/transactions");
+  let idarr = req.body.map(item => item.id)
+
+  if (!newItem || transactionArray.some(item => idarr.includes(item.id)) || newItem.some(item => item.category ==='bank' && item.name==='start' && parseFloat(item.value) < 100)) {
+    res.status(409).send('Invalid Object details');
+
   } else {
-    transactionArray = [...transactionArray, ...newItem];
+    transactionArray = [...transactionArray, ...newItem].filter((item, index, array) => {
+      return array.findIndex((obj) => obj.id === item.id) === index;
+    });
     //when new entry created, send back all
     res.status(201).json(transactionArray);
   }
@@ -37,7 +42,7 @@ router.delete("/:id", (req, res) => {
   } else {
     transactionArray = transactionArray.filter(item => item.id !== id);
     //consider 204 response
-    res.json(transactionArray);
+    res.status(204).json(transactionArray);
   }
 });
 

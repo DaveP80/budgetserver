@@ -7,8 +7,8 @@ router.get("/", (req, res) => {
   res.status(200).send(transactionArray);
 });
 
-router.get("/:id", (req, res) => {
-  const id = req.params.id;
+router.get("/get", (req, res) => {
+  const id = req.query.id;
 
   if (!transactionArray.some(item => item.id == id)) {
     res.redirect("/transactions");
@@ -17,12 +17,24 @@ router.get("/:id", (req, res) => {
   }
 });
 
+router.get("/reset", (req, res) => {
+
+  if (transactionArray.length == 0) {
+    res.status(200).send("already empty");
+  }
+  else {
+    transactionArray = [];
+    //when new category created, send back all
+    res.status(200).send(transactionArray);
+  }
+});
+
 router.post("/", (req, res) => {
   const newItem = req.body;
 
   let idarr = req.body.map(item => item.id)
 
-  if (!newItem || transactionArray.some(item => idarr.includes(item.id)) || newItem.some(item => item.category ==='bank' && item.name==='start' && parseFloat(item.value) < 100)) {
+  if (!newItem || transactionArray.some(item => idarr.includes(item.id)) || newItem.some(item => item.category === 'bank' && item.name === 'start' && parseFloat(item.value) < 100)) {
     res.status(409).send('Invalid Object details');
 
   } else {

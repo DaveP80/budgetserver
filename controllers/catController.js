@@ -14,7 +14,6 @@ router.get("/reset", (req, res) => {
     }
     else {
         cArray = ['bank', 'income', 'expenses', 'savings'];
-        //when new category created, send back all
         res.status(200).send(cArray);
     }
 });

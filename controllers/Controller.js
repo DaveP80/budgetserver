@@ -24,7 +24,6 @@ router.get("/reset", (req, res) => {
   }
   else {
     transactionArray = [];
-    //when new category created, send back all
     res.status(200).send(transactionArray);
   }
 });

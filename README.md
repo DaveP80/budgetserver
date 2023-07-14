@@ -33,6 +33,7 @@ interface MyObject {
   id: string;
   category: string;
   date: string;
+  name: string,
   value: number;
   from: string;
 }
@@ -41,6 +42,7 @@ const myObject: MyObject = {
   id: "999",
   category: "example",
   date: "Date String",
+  name: "example",
   value: 55,
   from: "example",
 };

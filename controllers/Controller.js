@@ -32,6 +32,7 @@ router.post("/", (req, res) => {
   const newItem = req.body;
 
   let idarr = req.body.map(item => item.id)
+  if (req.body.some(item => Object.keys(item).length < 6)) res.status(409).send('Invalid object keys');
 
   if (!newItem || transactionArray.some(item => idarr.includes(item.id)) || newItem.some(item => item.category === 'bank' && item.name === 'start' && parseFloat(item.value) < 100)) {
     res.status(409).send('Invalid Object details');
@@ -59,7 +60,7 @@ router.delete("/:id", (req, res) => {
 
 router.put("/:id", (req, res) => {
   const id = req.params.id;
-  if (Object.values(req.body).length < 5) res.redirect('/')
+  if (Object.values(req.body).length < 6) res.redirect('/')
 
   if (!transactionArray.some(item => item.id == id)) {
     res.redirect("/");

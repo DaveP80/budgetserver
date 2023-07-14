@@ -24,7 +24,7 @@ node server.js
 * To create a new transaction, the server accepts an array of objects
 ```bash
 http localhost:9000/transactions/get?id=1
-http POST localhost:9000/transactions -j <<< '[{"id":"999","category":"example","date":"Date String","value":55,"from":"example"}]'
+http POST localhost:9000/transactions -j <<< '[{"id":"999","category":"example","date":"Date String","name":"example","value":55,"from":"example"}]'
 ```
 Try to make post requests of new transactions with an Object with shape
 
